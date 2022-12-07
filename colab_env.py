@@ -17,12 +17,10 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--datasets')
 parser.add_argument('--github')
 parser.add_argument('--branch')
-parser.add_argument('--work_path')
 args = parser.parse_args()
 
 github = args.github
 branch = args.branch
-work_path = args.work_path
 datasets = args.datasets
 
 # 构建 working input 文件夹
@@ -49,17 +47,15 @@ if len_mydekun != 0:
       print("您已经下载过'%s'数据集" % dataset)
     else:
       zip = dataset + '.zip'
-      os.system("kaggle datasets download -d $temp -p $dataset")
+      os.system("kaggle datasets download -d %s -p %s" % (temp,dataset))
       # 解压数据集并删除压缩包
-      os.system("unzip $dataset/$zip -d $dataset > /dev/null 2>&1")
-      os.system("rm -f $dataset/$zip")
+      os.system("unzip %s/%s -d %s > /dev/null 2>&1" % (dataset,zip,dataset))
+      os.system("rm -f %s/%s" % (dataset,zip))
 
 ######### 克隆GitHub库 #########
-working = github.rsplit('/',1)[-1].rsplit('.',1)[0] + work_path
 try:
   os.chdir("/kaggle/working/")
 except:
   os.chdir("/content/working/")
 
-os.system("git clone -b $branch $github")   # 克隆 github 项目
-os.chdir(working)
+os.system("git clone -b %s %s" % (branch,github))   # 克隆 github 项目
