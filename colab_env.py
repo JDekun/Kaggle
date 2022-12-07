@@ -16,10 +16,12 @@ import os, sys, argparse
 parser = argparse.ArgumentParser()
 parser.add_argument('--datasets')
 parser.add_argument('--github')
+parser.add_argument('--branch')
 parser.add_argument('--work_path')
 args = parser.parse_args()
 
 github = args.github
+branch = args.branch
 work_path = args.work_path
 datasets = args.datasets
 
@@ -59,6 +61,5 @@ try:
 except:
   os.chdir("/content/working/")
 
-os.system("git clone $github")   # 克隆 github 项目
+os.system("git clone -b $branch $github")   # 克隆 github 项目
 os.chdir(working)
-
