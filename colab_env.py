@@ -14,7 +14,7 @@ setInterval(ConnectButton,60000);
 import os, sys, argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--datasets',nargs='+')
+parser.add_argument('--datasets')
 parser.add_argument('--github')
 parser.add_argument('--work_path')
 args = parser.parse_args()
@@ -22,7 +22,6 @@ args = parser.parse_args()
 github = args.github
 work_path = args.work_path
 datasets = args.datasets
-print(datasets[0])
 
 # 构建 working input 文件夹
 if not os.path.exists('/content/working'):
@@ -35,6 +34,7 @@ os.environ['KAGGLE_CONFIG_DIR'] = '/content/Kaggle' #注意kaggle文件夹包含
 
 ######### 下载数据集 #########
 os.chdir('/content/input')
+datasets = datasets.split(",")
 len_mydekun = len(datasets)
 if len_mydekun != 0:
   for i in range(len_mydekun):
