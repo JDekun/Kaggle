@@ -11,11 +11,18 @@ setInterval(ConnectButton,60000);
 '''
 # clearInterval()
 
-import os, sys
+import os, sys, argparse
 
-datasets = sys.argv[1]
-github = sys.argv[2]
-script_path = sys.argv[3]
+parser = argparse.ArgumentParser()
+parser.add_argument('--datasets',nargs='+')
+parser.add_argument('--github')
+parser.add_argument('--work_path')
+args = parser.parse_args()
+
+github = args.github
+work_path = args.work_path
+datasets = args.datasets
+print(datasets[0])
 
 # 构建 working input 文件夹
 if not os.path.exists('/content/working'):
@@ -46,7 +53,7 @@ if len_mydekun != 0:
       os.system("rm -f $dataset/$zip")
 
 ######### 克隆GitHub库 #########
-working = github.rsplit('/',1)[-1].rsplit('.',1)[0] + script_path
+working = github.rsplit('/',1)[-1].rsplit('.',1)[0] + work_path
 try:
   os.chdir("/kaggle/working/")
 except:
@@ -54,3 +61,4 @@ except:
 
 os.system("git clone $github")   # 克隆 github 项目
 os.chdir(working)
+
