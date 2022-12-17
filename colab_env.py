@@ -59,4 +59,4 @@ try:
 except:
   os.chdir("/content/working/")
 
-os.system("git clone -b %s %s" % (branch,github))   # 克隆 github 项目
+os.system("git clone -b %s %s > /dev/null 2>&1" % (branch,github))   # 克隆 github 项目
